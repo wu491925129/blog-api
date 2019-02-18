@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wulong.project.dao.BlogInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wulong.project.model.BlogInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="op_time" jdbcType="TIMESTAMP" property="opTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="op_user_id" jdbcType="VARCHAR" property="opUserId" />
+    <result column="op_user_name" jdbcType="VARCHAR" property="opUserName" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+</mapper>

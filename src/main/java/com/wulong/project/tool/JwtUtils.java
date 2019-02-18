@@ -1,12 +1,16 @@
 package com.wulong.project.tool;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import io.jsonwebtoken.*;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JwtUtils {
   
@@ -88,10 +92,13 @@ public class JwtUtils {
     }  
       
     public static void main(String[] args) throws Exception {
-        String jwtString = createJWT("1001", "1001", 10000);
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId","9f3a18a51de24194b2e938c1cb42765e");
+        map.put("userName","491925129@qq.com");
+        String jwtString = createJWT("1001", JSON.toJSON(map).toString(), 100000000);
         System.out.println(jwtString);
 
-        /*String jwtString = "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoid3Vsb25nIiwianRpIjoiMTAwMSIsInN1YiI6IjEwMDEiLCJpYXQiOjE1NDI2MTczODAsImV4cCI6MzA4NTIzNDc3MX0._vtA9p7dCflY9usm5uJ0I1AT8cGqn3Ldj-k--e6Hr5Y";
+        /*String jwtString = "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoid3Vsb25nIiwianRpIjoiMTAwMSIsInN1YiI6IntcInVzZXJOYW1lXCI6XCI0OTE5MjUxMjlAcXEuY29tXCIsXCJ1c2VySWRcIjpcIjlmM2ExOGE1MWRlMjQxOTRiMmU5MzhjMWNiNDI3NjVlXCJ9IiwiaWF0IjoxNTUwNDc1NzQ3LCJleHAiOjE1NTA0NzY3NDd9.rBISf7owZNkXEWPfFWb5n0qhC2u90amhl0nKVxaFlrk";
       Claims claims = parseJWT(jwtString);
       System.out.println(claims.getId());
       System.out.println(claims.getSubject());
@@ -105,7 +112,7 @@ public class JwtUtils {
             System.out.println("签名校验失败");  
         } catch (Exception e) {  
             System.out.println("其它错误");  
-        } */
+        }*/
   
     }  
   
