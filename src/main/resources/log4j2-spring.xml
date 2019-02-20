@@ -40,5 +40,7 @@
             <appender-ref ref="CONSOLE"/>
             <AppenderRef ref="TASK" />
         </root>
+        <logger name="org.quartz" level="INFO">
+        </logger>
     </loggers>
 </Configuration>

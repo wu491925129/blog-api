@@ -53,6 +53,14 @@ public class BlogInfo {
      */
     private String content;
 
+    /**
+     * 文字描述
+     */
+    private String description;
+
+    /**
+     * 默认站位图id
+     */
     @Column(name = "default_img_id")
     private String defaultImgId;
 
@@ -220,5 +228,13 @@ public class BlogInfo {
 
     public void setDefaultImgId(String defaultImgId) {
         this.defaultImgId = defaultImgId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
