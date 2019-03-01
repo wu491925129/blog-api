@@ -15,7 +15,6 @@ import java.util.List;
  */
 public abstract class AbstractService<T> implements Service<T> {
 
-    @Autowired
     protected Mapper<T> mapper;
 
     private Class<T> modelClass;    // 当前泛型真实类型的Class
@@ -30,14 +29,17 @@ public abstract class AbstractService<T> implements Service<T> {
         mapper.insertSelective(model);
     }
 
+    @Override
     public void save(List<T> models) {
         mapper.insertList(models);
     }
 
+    @Override
     public void deleteById(String id) {
         mapper.deleteByPrimaryKey(id);
     }
 
+    @Override
     public void deleteByIds(String ids) {
         mapper.deleteByIds(ids);
     }
@@ -65,10 +67,12 @@ public abstract class AbstractService<T> implements Service<T> {
         }
     }
 
+    @Override
     public List<T> findByIds(String ids) {
         return mapper.selectByIds(ids);
     }
 
+    @Override
     public List<T> findByCondition(Condition condition) {
         return mapper.selectByCondition(condition);
     }
@@ -78,6 +82,7 @@ public abstract class AbstractService<T> implements Service<T> {
         return mapper.selectByExample(example);
     }
 
+    @Override
     public List<T> findAll() {
         return mapper.selectAll();
     }
