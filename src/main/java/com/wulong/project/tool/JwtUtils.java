@@ -95,7 +95,7 @@ public class JwtUtils {
         Map<String,Object> map = new HashMap<>();
         map.put("userId","9f3a18a51de24194b2e938c1cb42765e");
         map.put("userName","491925129@qq.com");
-        String jwtString = createJWT("1001", JSON.toJSON(map).toString(), 100000000);
+        String jwtString = createJWT("1001", JSON.toJSON(map).toString(), 1999999999);
         System.out.println(jwtString);
 
         /*String jwtString = "eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoid3Vsb25nIiwianRpIjoiMTAwMSIsInN1YiI6IntcInVzZXJOYW1lXCI6XCI0OTE5MjUxMjlAcXEuY29tXCIsXCJ1c2VySWRcIjpcIjlmM2ExOGE1MWRlMjQxOTRiMmU5MzhjMWNiNDI3NjVlXCJ9IiwiaWF0IjoxNTUwNDc1NzQ3LCJleHAiOjE1NTA0NzY3NDd9.rBISf7owZNkXEWPfFWb5n0qhC2u90amhl0nKVxaFlrk";

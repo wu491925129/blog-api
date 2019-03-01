@@ -16,12 +16,12 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
 * Created by CodeGenerator on 2019/02/18.
@@ -77,16 +77,36 @@ public class BlogInfoController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
+    @GetMapping("/detail/{id}")
+    public Result detail(@PathVariable String id) {
         BlogInfo blogInfo = blogInfoService.findById(id);
         return ResultGenerator.genSuccessResult(blogInfo);
     }
 
     @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size,HttpServletRequest request) {
+        String token = request.getHeader(ProjectConstant.JWT_TOKEN);
+        Map<String,Object> result = new HashMap<>();
         PageHelper.startPage(page, size);
-        List<BlogInfo> list = blogInfoService.findAll();
+        List<BlogInfo> list = new ArrayList<>();
+        if (!Strings.isNullOrEmpty(token)) {
+            // 从token中获取用户信息
+            try {
+                Claims claims = JwtUtils.parseJWT(token);
+                JSONObject json = JSON.parseObject(claims.getSubject());
+                String userId = json.getString("userId");
+                Example example = new Example(BlogInfo.class);
+                example.setOrderByClause("op_time DESC");
+                example.createCriteria().andEqualTo("opUserId",userId);
+                list =blogInfoService.findByExample(example);
+                PageInfo pageInfo = new PageInfo(list);
+                result.put("opUserId",userId);
+                result.put("pageInfo",pageInfo);
+                return ResultGenerator.genSuccessResult(result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }

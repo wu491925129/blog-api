@@ -1,5 +1,10 @@
 # Compiled class file
 *.class
+.idea/
+.gitignore
+target/
+MANIFEST.MF
+
 
 # Log file
 *.log

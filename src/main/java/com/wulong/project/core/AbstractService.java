@@ -4,6 +4,7 @@ package com.wulong.project.core;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -44,7 +45,7 @@ public abstract class AbstractService<T> implements Service<T> {
         mapper.updateByPrimaryKeySelective(model);
     }
 
-    public T findById(Integer id) {
+    public T findById(String id) {
         return mapper.selectByPrimaryKey(id);
     }
 
@@ -67,6 +68,11 @@ public abstract class AbstractService<T> implements Service<T> {
 
     public List<T> findByCondition(Condition condition) {
         return mapper.selectByCondition(condition);
+    }
+
+    @Override
+    public List<T> findByExample(Example example) {
+        return mapper.selectByExample(example);
     }
 
     public List<T> findAll() {
