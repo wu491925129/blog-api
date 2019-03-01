@@ -66,9 +66,15 @@ public class BlogInfoController {
     }
 
     @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        blogInfoService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+    public Result delete(@RequestParam String id) {
+        if (!Strings.isNullOrEmpty(id)){
+            BlogInfo blogInfo = new BlogInfo();
+            blogInfo.setId(id);
+            blogInfo.setStatus(0);
+            blogInfoService.updateByPrimaryKeySelective(blogInfo);
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult("id不能为空");
     }
 
     @PostMapping("/update")
@@ -97,7 +103,7 @@ public class BlogInfoController {
                 String userId = json.getString("userId");
                 Example example = new Example(BlogInfo.class);
                 example.setOrderByClause("op_time DESC");
-                example.createCriteria().andEqualTo("opUserId",userId);
+                example.createCriteria().andEqualTo("opUserId",userId).andEqualTo("status",1);
                 list =blogInfoService.findByExample(example);
                 PageInfo pageInfo = new PageInfo(list);
                 result.put("opUserId",userId);
