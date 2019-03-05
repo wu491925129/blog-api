@@ -60,6 +60,7 @@ public class BlogInfoController {
             blogInfoService.save(blogInfo);
         } else {
             blogInfo.setOpTime(new Date());
+            blogInfo.setStatus(1);
             blogInfoService.update(blogInfo);
         }
         return ResultGenerator.genSuccessResult();
@@ -103,7 +104,8 @@ public class BlogInfoController {
                 String userId = json.getString("userId");
                 Example example = new Example(BlogInfo.class);
                 example.setOrderByClause("op_time DESC");
-                example.createCriteria().andEqualTo("opUserId",userId).andEqualTo("status",1);
+                Example.Criteria cri = example.createCriteria();
+                cri.andEqualTo("opUserId",userId).andEqualTo("status",1);
                 list =blogInfoService.findByExample(example);
                 PageInfo pageInfo = new PageInfo(list);
                 result.put("opUserId",userId);

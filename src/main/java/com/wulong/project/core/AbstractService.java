@@ -15,6 +15,7 @@ import java.util.List;
  */
 public abstract class AbstractService<T> implements Service<T> {
 
+    @Autowired
     protected Mapper<T> mapper;
 
     private Class<T> modelClass;    // 当前泛型真实类型的Class
